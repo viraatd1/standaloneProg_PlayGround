@@ -1,0 +1,6 @@
+module ScitonComponents
+
+Constants 1.0 Constants.qml
+Input 1.0 Input.qml
+KeyValuePair 1.0 KeyValuePair.qml
+Card 1.0 Card.qml

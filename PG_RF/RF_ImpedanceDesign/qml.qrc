@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>mainGeometricBack.png</file>
+        <file>fonts/HelveticaMedCd.ttf</file>
+        <file>fonts/HelveticaNeueMedium.ttf</file>
+        <file>ScitonComponents/Constants.qml</file>
+        <file>ScitonComponents/Input.qml</file>
+        <file>ScitonComponents/KeyValuePair.qml</file>
+        <file>ScitonComponents/qmldir</file>
+        <file>ScitonComponents/Card.qml</file>
+    </qresource>
+</RCC>
