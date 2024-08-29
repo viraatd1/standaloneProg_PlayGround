@@ -37,14 +37,14 @@ static void dumpBuffer(unsigned char *buffer, int elements)
     printf("]\n");
 }
 
-unsigned int impedance_data[650];
+unsigned short pulse_data[974]={0};
 
 int main() {
 
     FT_HANDLE ftHandle;
     FT_STATUS status;
     DWORD bytesAvailable, bytesRead;
-    char buffer[2000]={0};
+    unsigned char buffer[2000]={0};
     //DWORD baudRate = 115200; // Set the desired baud rate
     DWORD baudRate = 622750; // Set the desired baud rate
 
@@ -98,13 +98,12 @@ int main() {
     // Get start time for timeout
     startTime = time(NULL);
 
-    DWORD bytesCycle=0;
+    //printf("Size of DWORD: %zu bytes\n", sizeof(DWORD)); //4 Bytes
+    //printf("Size of char: %zu bytes\n", sizeof(char));   // Bytes
+    //printf("Size of unsigned int: %zu bytes\n", sizeof(unsigned int));   // Bytes
+    //printf("Size of unsigned short : %zu bytes\n", sizeof(unsigned short));   // Bytes
 
     while (1) {
-
-        /* Print only if the bytes are what we want */
-        if(bytesCycle == )
-
 
         /* Get the number of bytes available in the receive buffer */
         status = FT_GetQueueStatus(ftHandle, &bytesAvailable);
@@ -138,16 +137,25 @@ int main() {
             printf("Read %lu bytes from buffer:\n", bytesRead);
 
             // Process each pair of bytes
-            for (DWORD i = 0; i < 974; i++) {
+            for (int i = 0; i < 974; i++) {
                 // Ensure we have at least two bytes to process
-                unsigned int j = i*2;
+                int index = i*2;
+
+                // Ensure there are enought bytes in the read buffer
                 if (i + 1 < bytesRead) {
-                    unsigned short lsb = (unsigned short)buffer[j];
-                    unsigned short msb = (unsigned short)buffer[j + 1];
-                    unsigned short shifted_lsb = (lsb << 8);
-                    impedance_data[i]= shifted_lsb + msb;
+                    unsigned short msb = (unsigned short)(buffer[index]);        //MSB
+                    unsigned short lsb = (unsigned short)(buffer[index + 1]);    //LSb
+                    printf("Bytes: MSB : 0x%02X / %hu | LSB : 0x%02X / %hu \n", buffer[index],msb, buffer[index+1],lsb);
+                    pulse_data[i]= (unsigned short)((lsb + msb));
+
+//                    unsigned short val = ((unsigned short)msb << 8) | (unsigned short)lsb ;
+                    printf("DataPoint # %d: %hu \n", i, pulse_data[i]);
+
+
+                    //unsigned short shifted_msb = (msb << 8);
+                    //pulse_data[i]= (unsigned short)(unsigned char)(shifted_msb + lsb);
                     // Print both bytes with 0x prefix and the integer value in both hexadecimal and decimal
-                    //printf("Bytes: 0x%02X 0x%02X -> Integer: 0x%04X (%u)\n", lsb, msb,shifted_lsb + msb);
+                    //printf("Bytes: 0x%02X 0x%02X | %hu %hu -> Integer: 0x%04X (%u)\n", buffer[index], buffer[index+1],lsb, msb, (unsigned short)(unsigned char)(shifted_msb + lsb));
                 }
             }
 
