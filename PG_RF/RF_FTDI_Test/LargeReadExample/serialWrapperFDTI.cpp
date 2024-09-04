@@ -95,7 +95,7 @@ int serialWrapperFTDI::readData(unsigned int arg_bytesToRead, unsigned int& arg_
         }
 
         // Limit the bytesRead to MAX_BUFFER_SIZE
-        DWORD lcl_bytesToRead = (bytesAvailable > MAX_BUFFER_SIZE) ? MAX_BUFFER_SIZE : bytesAvailable;
+        //DWORD lcl_bytesToRead = (bytesAvailable > MAX_BUFFER_SIZE) ? MAX_BUFFER_SIZE : bytesAvailable;
 
 
         FT_STATUS lcl_status = FT_Read(m_ftHandle, arg_buffer, arg_bytesToRead, &arg_bytesReturned);

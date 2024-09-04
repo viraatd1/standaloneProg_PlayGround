@@ -144,12 +144,12 @@ int main() {
                 // Ensure there are enought bytes in the read buffer
                 if (i + 1 < bytesRead) {
                     unsigned short msb = (unsigned short)(buffer[index]);        //MSB
-                    unsigned short lsb = (unsigned short)(buffer[index + 1]);    //LSb
-                    printf("Bytes: MSB : 0x%02X / %hu | LSB : 0x%02X / %hu \n", buffer[index],msb, buffer[index+1],lsb);
-                    pulse_data[i]= (unsigned short)((lsb + msb));
+                    unsigned short lsb = (unsigned short)(buffer[index + 1]);    //LSB
 
+                    pulse_data[i]= (unsigned short)((lsb + msb));
+                    printf("Bytes: MSB : 0x%02X / %hu | LSB : 0x%02X / %hu | Val: %hu \n", buffer[index],msb, buffer[index+1],lsb,pulse_data[i]);
 //                    unsigned short val = ((unsigned short)msb << 8) | (unsigned short)lsb ;
-                    printf("DataPoint # %d: %hu \n", i, pulse_data[i]);
+                    //printf("DataPoint # %d: %hu \n", i, pulse_data[i]);
 
 
                     //unsigned short shifted_msb = (msb << 8);
